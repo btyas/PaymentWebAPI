@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Logging;
 using PaymentWebAPI.Models;
+using Newtonsoft.Json.Serialization;
+
 
 namespace PaymentWebAPI
 {
@@ -29,10 +31,17 @@ namespace PaymentWebAPI
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddMvc().AddNewtonsoftJson(options =>
+           {
+              var resolver = options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+               (resolver as DefaultContractResolver).NamingStrategy = null;
+           });
+                   
             services.AddDbContext<PayementDetailContext>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             
-
+         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

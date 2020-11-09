@@ -14,7 +14,7 @@ namespace PaymentWebAPI.Models
 
         [Required]
         [Column(TypeName = "nvarchar(100)")]
-        public int CardOwnerName { get; set; }
+        public string CardOwnerName { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(16)")]
